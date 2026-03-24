@@ -1,0 +1,3 @@
+export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib -L/opt/homebrew/opt/zlib/lib -L/opt/homebrew/opt/freetype/lib -L$(brew --prefix)/lib"
+export CPPFLAGS="-I$(brew --prefix)/include -I/opt/homebrew/opt/freetype/include/freetype2 -I/opt/homebrew/opt/mysql-client/include -I/opt/homebrew/opt/zlib/include -I/opt/homebrew/opt/libmemcached/include"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig:/opt/homebrew/opt/zlib/lib/pkgconfig:$(brew --prefix)/lib/pkgconfig"

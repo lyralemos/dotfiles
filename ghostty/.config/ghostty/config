@@ -1,0 +1,17 @@
+# aesthetics
+background-opacity = 0.85
+background-blur=16
+window-padding-x=8
+window-padding-y=8
+
+mouse-hide-while-typing=false
+cursor-color=cell-foreground
+cursor-text=cell-background
+cursor-style = block
+shell-integration-features = no-cursor
+
+# typography
+font-size=16
+font-thicken=true
+font-thicken-strength=1
+adjust-cell-height=1
