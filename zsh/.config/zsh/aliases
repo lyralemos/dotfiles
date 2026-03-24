@@ -1,5 +1,5 @@
 # File system
-if command -v eza &> /dev/null; then
+if [ -f "/opt/homebrew/bin/eza" ]; then
   alias ls='eza -lh --group-directories-first --icons=auto'
   alias lsa='ls -a'
   alias lt='eza --tree --level=2 --long --icons --git'
@@ -20,3 +20,7 @@ alias g='git'
 alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gcad='git commit -a --amend'
+
+# Work around starship/starship#560
+precmd() { precmd() { echo "" } }
+alias clear="precmd() { precmd() { echo } } && clear"
