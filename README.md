@@ -5,9 +5,7 @@ My personal dotfiles for macOS.
 ## Install
 
 ```shell
-git clone https://github.com/lyralemos/dotfiles ~/dotfiles
-cd ~/dotfiles
-./install.sh
+curl -o- https://raw.githubusercontent.com/lyralemos/dotfiles/main/install.sh | bash
 ```
 
 This will install:
@@ -29,8 +27,8 @@ This will install:
 * AeroSpace
 * Janky Borders
 
-Dotfiles are managed by `stow`, so we clone this repo in `$HOME`.
+Dotfiles are managed by [stow](https://www.gnu.org/software/stow/).
 
-SketchyBar is based in simplified version of [Felix Kratz's](https://github.com/FelixKratz/dotfiles) config with support for AeroSpace
+SketchyBar is a simplified version of [Felix Kratz's](https://github.com/FelixKratz/dotfiles) config with support for AeroSpace.
 
 ![Alt Text](screen.png)

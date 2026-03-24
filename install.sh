@@ -29,7 +29,11 @@ brew install --cask font-sf-mono
 brew install --cask font-sf-pro
 brew install --cask font-sketchybar-app-font
 
+
 # install dotfiles
+git clone https://github.com/lyralemos/dotfiles.git ~/dotfiles
+cd dotfiles
+
 stow aerospace
 stow ghostty
 stow sketchybar
