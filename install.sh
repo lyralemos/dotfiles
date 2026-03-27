@@ -7,7 +7,8 @@ fi
 
 brew install \
     git uv fzf zoxide starship eza stow \
-    lua switchaudio-osx nowplaying-cli
+    lua switchaudio-osx nowplaying-cli \
+    node
 
 # Ghostty
 brew install --cask ghostty
@@ -55,6 +56,5 @@ fi
 
 # dev
 curl -fsSL https://bun.com/install | bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 
 source ~/.zshrc
