@@ -1,17 +1,30 @@
 # aesthetics
+theme = hyper
 background-opacity = 0.85
-background-blur=16
-window-padding-x=8
-window-padding-y=8
+font-family = "CaskaydiaCove Nerd Font Mono"
+background-blur = 16
+window-decoration = auto
+window-padding-x = 20
+window-padding-y = 20
+window-width = 226
+window-height = 64
+window-position-x = 128
+window-position-y = 73
+macos-titlebar-style = hidden
 
-mouse-hide-while-typing=false
-cursor-color=cell-foreground
-cursor-text=cell-background
+cursor-color = cell-foreground
+cursor-text = cell-background
 cursor-style = block
+cursor-style-blink = false
+mouse-hide-while-typing = true
 shell-integration-features = no-cursor
 
 # typography
-font-size=16
-font-thicken=true
-font-thicken-strength=1
-adjust-cell-height=1
+font-size = 16
+font-thicken = true
+font-thicken-strength = 1
+adjust-cell-height = 1
+
+copy-on-select = clipboard
+clipboard-paste-protection = true
+
