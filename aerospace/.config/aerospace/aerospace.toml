@@ -108,16 +108,16 @@ alt-cmd-enter = 'exec-and-forget open -a /Applications/Ghostty.app'
 alt-shift-r = ['exec-and-forget /opt/homebrew/bin/sketchybar --reload']
 alt-cmd-g = 'exec-and-forget open -a /Applications/WhatsApp.app'
 
-# See: https://nikitabobko.github.ioeAeroSpace/commands#layout
+# See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-e = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 alt-f = 'fullscreen'
 alt-y = ['focus right', 'join-with down', 'layout tiles horizontal']
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-alt-left = 'focus left'
+alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
-alt-right = 'focus right'
+alt-l = 'focus right'
 
 # app shortcut
 
