@@ -1,5 +1,5 @@
 # aesthetics
-theme = hyper
+theme = tokyonight
 background-opacity = 0.85
 font-family = "CaskaydiaCove Nerd Font Mono"
 background-blur = 16
@@ -27,4 +27,3 @@ adjust-cell-height = 1
 
 copy-on-select = clipboard
 clipboard-paste-protection = true
-
