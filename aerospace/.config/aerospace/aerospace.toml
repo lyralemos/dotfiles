@@ -36,7 +36,7 @@ automatically-unhide-macos-hidden-apps = false
 
 after-startup-command = [
   'exec-and-forget sketchybar',
-  'exec-and-forget borders style=round width=6.0 active_color=0xff9ed072 inactive_color=0xc02c2e34 background_color=0x302c2e34'
+  'exec-and-forget borders style=round width=6.0 active_color=0xff7aa2f7 inactive_color=0xc0292e42 background_color=0x30292e42'
 ]
 
 # Notify Sketchybar about workspace change and update icons

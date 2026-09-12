@@ -10,7 +10,7 @@ curl -o- https://raw.githubusercontent.com/lyralemos/dotfiles/main/install.sh | 
 
 This will install:
 
-* brew
+* Homebrew
 * uv
 * fzf
 * zoxide
@@ -20,10 +20,10 @@ This will install:
 * lua 
 * switchaudio-osx 
 * nowplaying-cli
-* bun
-* nvm
+* Node.js
+* Bun
 * Ghostty
-* sketchybar
+* SketchyBar
 * AeroSpace
 * Janky Borders
 

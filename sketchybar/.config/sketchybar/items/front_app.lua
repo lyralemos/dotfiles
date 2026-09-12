@@ -5,6 +5,7 @@ sbar.add("item", "chevron", {
   icon = {
     string = "",
     font = "Hack Nerd Font:Bold:14.0",
+    color = colors.blue,
     drawing = true,
   }
 })
