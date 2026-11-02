@@ -1,6 +1,6 @@
 # My dotfiles
 
-My personal dotfiles for macOS.
+My personal dotfiles for **macOS** and **Fedora Linux (GNOME)**.
 
 ## Install
 
@@ -8,27 +8,46 @@ My personal dotfiles for macOS.
 curl -o- https://raw.githubusercontent.com/lyralemos/dotfiles/main/install.sh | bash
 ```
 
-This will install:
+The installation script automatically detects the operating system (**macOS** or **Fedora**) and installs the appropriate packages and configurations.
 
-* Homebrew
+### Common Tools (macOS & Fedora)
+
+* git
+* zsh (set as default shell on Fedora)
 * uv
 * fzf
 * zoxide
-* Starship 
-* eza 
+* Starship
+* eza
 * stow
-* lua 
-* switchaudio-osx 
-* nowplaying-cli
+* lua
 * Node.js
 * Bun
 * Ghostty
-* SketchyBar
+
+### macOS Specific
+
+* Homebrew
+* switchaudio-osx
+* nowplaying-cli
+* SketchyBar (with SbarLua)
 * AeroSpace
 * Janky Borders
+* Fonts & Symbols (`sf-symbols`, `font-sf-mono`, `font-sf-pro`, `font-sketchybar-app-font`)
 
-Dotfiles are managed by [stow](https://www.gnu.org/software/stow/).
+### Fedora (GNOME) Specific
 
-SketchyBar is a simplified version of [Felix Kratz's](https://github.com/FelixKratz/dotfiles) config with support for AeroSpace.
+* Extension Manager (`com.mattjakeman.ExtensionManager` via Flatpak)
+* GNOME Shell Extensions:
+  * AppIndicator and KStatusNotifierItem Support (`appindicatorsupport@rgcjonas.gmail.com`)
+  * Blur my Shell (`blur-my-shell@aunetx`)
+  * Disable Workspace Switch Animation (`instantworkspaceswitcher@amalantony.net`)
+  * O-tiling (`o-tiling@oliwebd.github.com`)
+
+---
+
+Dotfiles are managed by [GNU Stow](https://www.gnu.org/software/stow/).
+
+SketchyBar (on macOS) is a simplified version of [Felix Kratz's](https://github.com/FelixKratz/dotfiles) config with support for AeroSpace.
 
 ![Alt Text](screen.png)
