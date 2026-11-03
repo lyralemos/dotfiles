@@ -58,4 +58,12 @@ Dotfiles are managed by [GNU Stow](https://www.gnu.org/software/stow/).
 
 SketchyBar (on macOS) is a simplified version of [Felix Kratz's](https://github.com/FelixKratz/dotfiles) config with support for AeroSpace.
 
-![Alt Text](screen.png)
+## Screenshots
+
+### macOS
+
+![macOS](screen.png)
+
+### Fedora (GNOME)
+
+![Fedora](fedora.png)
