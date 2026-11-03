@@ -20,7 +20,7 @@ mouse-hide-while-typing = true
 shell-integration-features = no-cursor
 
 # typography
-font-size = 16
+font-size = 14
 font-thicken = true
 font-thicken-strength = 1
 adjust-cell-height = 1
