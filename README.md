@@ -24,6 +24,8 @@ The installation script automatically detects the operating system (**macOS** or
 * Node.js
 * Bun
 * Ghostty
+* CaskaydiaCove Nerd Font Mono
+* VS Code (`settings.json` + extensions: `iwyvi.chinolor`, `miguelsolorio.symbols`, `ms-vscode.makefile-tools`, `ms-python.python`, `batisteo.vscode-django`)
 
 ### macOS Specific
 
@@ -37,12 +39,18 @@ The installation script automatically detects the operating system (**macOS** or
 
 ### Fedora (GNOME) Specific
 
+* [snx-rs](https://github.com/ancwrd1/snx-rs) (Check Point VPN Client via official GitHub release RPM + `snx-rs.conf` stowed)
 * Extension Manager (`com.mattjakeman.ExtensionManager` via Flatpak)
 * GNOME Shell Extensions:
   * AppIndicator and KStatusNotifierItem Support (`appindicatorsupport@rgcjonas.gmail.com`)
   * Blur my Shell (`blur-my-shell@aunetx`)
   * Disable Workspace Switch Animation (`instantworkspaceswitcher@amalantony.net`)
   * O-tiling (`o-tiling@oliwebd.github.com`)
+* Custom GNOME & O-tiling Configurations (`dconf`):
+  * GNOME Overview mapped to `<Super>Space` (disabled on single `<Super>` press)
+  * 5 fixed workspaces with `<Super>1..5` to switch and `<Shift><Super>1..5` to move windows
+  * Application shortcuts: `<Super>Return` (Ghostty) and `<Shift><Super>Return` (Firefox)
+  * O-tiling layout, gaps, transparency, animations, and Vim-style focus/resize bindings
 
 ---
 

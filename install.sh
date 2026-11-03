@@ -88,6 +88,7 @@ install_macos_packages() {
     brew install --cask font-sf-mono
     brew install --cask font-sf-pro
     brew install --cask font-sketchybar-app-font
+    brew install --cask font-caskaydia-cove-nerd-font
 
     # SbarLua (SketchyBar Lua module)
     SBAR_LUA_FILE="$HOME/.local/share/sketchybar_lua/sketchybar.so"
@@ -109,7 +110,35 @@ install_fedora_packages() {
     echo "==> Installing CLI tools & applications via DNF..."
     sudo dnf install -y \
         git uv fzf zoxide starship eza stow \
-        lua nodejs ghostty zsh
+        lua nodejs ghostty zsh unzip
+
+    if ! fc-list | grep -qi "CaskaydiaCove Nerd Font"; then
+        echo "==> Installing CaskaydiaCove Nerd Font..."
+        local font_dir="$HOME/.local/share/fonts/CaskaydiaCoveNerdFont"
+        local font_zip="/tmp/CascadiaCode.zip"
+        mkdir -p "$font_dir"
+        curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip" -o "$font_zip"
+        unzip -oq "$font_zip" -d "$font_dir"
+        rm -f "$font_zip"
+        fc-cache -f "$font_dir"
+    fi
+
+    if ! command -v snx-rs &> /dev/null; then
+        echo "==> Installing snx-rs (Check Point VPN Client)..."
+        local arch
+        arch="$(uname -m)"
+        [ "$arch" = "aarch64" ] && arch="arm64"
+        local snx_rpm_url
+        snx_rpm_url="$(curl -fsSL https://api.github.com/repos/ancwrd1/snx-rs/releases/latest \
+            | python3 -c "import sys, json; assets = json.load(sys.stdin).get('assets', []); print(next((a['browser_download_url'] for a in assets if a['name'].endswith('linux-${arch}.rpm') and 'webkit' not in a['name']), ''))" 2>/dev/null || true)"
+
+        if [ -n "$snx_rpm_url" ]; then
+            sudo dnf install -y "$snx_rpm_url"
+            sudo systemctl enable --now snx-rs.service
+        else
+            echo "Warning: Could not find snx-rs RPM for architecture $arch"
+        fi
+    fi
 
     echo "==> Installing Flatpak applications (Extension Manager)..."
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -171,6 +200,104 @@ PYEOF
         fi
     fi
 
+    if command -v dconf &> /dev/null; then
+        echo "==> Configuring GNOME workspaces, shortcuts, and O-tiling settings..."
+        dconf load / <<'DCONF_EOF'
+[org/gnome/mutter]
+dynamic-workspaces=false
+edge-tiling=false
+focus-change-on-pointer-rest=false
+overlay-key=''
+
+[org/gnome/mutter/keybindings]
+switch-monitor=['XF86Display']
+toggle-tiled-left=@as []
+toggle-tiled-right=@as []
+
+[org/gnome/desktop/wm/preferences]
+button-layout='appmenu:close'
+num-workspaces=5
+
+[org/gnome/shell/keybindings]
+shift-overview-down=['<Super><Alt>Down']
+shift-overview-up=['<Super><Alt>Up']
+switch-to-application-1=@as []
+switch-to-application-2=@as []
+switch-to-application-3=@as []
+switch-to-application-4=@as []
+switch-to-application-5=@as []
+toggle-overview=['<Super>space']
+toggle-quick-settings=@as []
+
+[org/gnome/desktop/wm/keybindings]
+maximize=@as []
+minimize=@as []
+move-to-monitor-down=@as []
+move-to-monitor-left=@as []
+move-to-monitor-right=@as []
+move-to-monitor-up=@as []
+move-to-workspace-1=['<Shift><Super>1']
+move-to-workspace-2=['<Shift><Super>2']
+move-to-workspace-3=['<Shift><Super>3']
+move-to-workspace-4=['<Shift><Super>4']
+move-to-workspace-5=['<Shift><Super>5']
+switch-input-source=['XF86Keyboard']
+switch-to-workspace-1=['<Super>1']
+switch-to-workspace-2=['<Super>2']
+switch-to-workspace-3=['<Super>3']
+switch-to-workspace-4=['<Super>4']
+switch-to-workspace-5=['<Super>5']
+switch-to-workspace-left=['<Super>Page_Up', '<Super>KP_Prior', '<Control><Alt>Left', '<Super><Alt>Left']
+switch-to-workspace-right=['<Super>Page_Down', '<Super>KP_Next', '<Control><Alt>Right', '<Super><Alt>Right']
+unmaximize=@as []
+
+[org/gnome/shell/extensions/o-tiling]
+cleared-system-bindings='{"tile-enter":[{"schema_id":"org.gnome.mutter.keybindings","key":"switch-monitor","accelerator":"<Super>p","expected":["XF86Display"]}],"focus-left":[{"schema_id":"org.gnome.desktop.wm.keybindings","key":"minimize","accelerator":"<Super>h","expected":[]}],"toggle-stacking-global":[{"schema_id":"org.gnome.shell.keybindings","key":"toggle-quick-settings","accelerator":"<Super>s","expected":[]}],"tile-move-down-global":[{"schema_id":"org.gnome.desktop.wm.keybindings","key":"move-to-monitor-down","accelerator":"<Super><Shift>Down","expected":[]}],"tile-move-up-global":[{"schema_id":"org.gnome.desktop.wm.keybindings","key":"move-to-monitor-up","accelerator":"<Super><Shift>Up","expected":[]}]}'
+focus-down=['<Super>Down', '<Super>j']
+focus-left=['<Super>Left', '<Super>h']
+focus-right=['<Super>Right', '<Super>l']
+focus-up=['<Super>Up', '<Super>k']
+gap-inner=uint32 3
+gap-outer=uint32 3
+hide-panel-icon=false
+panel-transparency=true
+panel-transparency-opacity=uint32 40
+pop-workspace-down=['<Super><Shift>j']
+pop-workspace-up=['<Super><Shift>k']
+show-minimize-maximize-buttons=false
+show-overview-button-in-indicator=false
+skip-overview=true
+stacking-with-mouse=false
+theme-consistency-style='default'
+tile-enter=['<Super>p']
+tile-move-down-global=['<Super><Shift>Down']
+tile-move-left-global=['<Super><Shift>Left']
+tile-move-right-global=['<Super><Shift>Right']
+tile-move-up-global=['<Super><Shift>Up']
+tile-resize-left=['<Super>Equal', '<Shift>KP_Left', '<Shift>h']
+tile-resize-right=['<Super>Minus', '<Shift>KP_Right', '<Shift>l']
+tile-swap-left=['<Primary><Super>Left', '<Primary><Super>h']
+tile-swap-right=['<Primary><Super>Right', '<Primary><Super>l']
+window-animation-style='hyprland'
+workspace-animation-style='none'
+workspace-number-indicator=false
+workspace-switcher-style=true
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Shift><Super>Return'
+command='firefox'
+name='Abrir navegador'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Super>Return'
+command='ghostty'
+name='Abrir Terminal'
+DCONF_EOF
+    fi
+
     local zsh_path
     zsh_path="$(command -v zsh)"
     local current_shell
@@ -218,8 +345,8 @@ cd "$DOTFILES_DIR" || exit 1
 # 4. Prepare Target Directories & Safe Backups
 # ------------------------------------------------------------------------------
 echo "==> Preparing configurations for GNU Stow..."
-# Essential: Ensure ~/.config exists as a real directory to avoid Stow folding
-mkdir -p "$HOME/.config" "$HOME/.local/share" "$HOME/.local/bin"
+# Essential: Ensure ~/.config and ~/.config/Code/User exist as real directories to avoid Stow folding
+mkdir -p "$HOME/.config" "$HOME/.config/Code/User" "$HOME/.local/share" "$HOME/.local/bin"
 
 backup_if_exists() {
     local target="$1"
@@ -237,8 +364,10 @@ backup_if_exists() {
 # Backup existing configs only if they are real files/directories (not symlinks)
 backup_if_exists "$HOME/.zshrc"
 backup_if_exists "$HOME/.config/ghostty"
+backup_if_exists "$HOME/.config/snx-rs"
 backup_if_exists "$HOME/.config/starship.toml"
 backup_if_exists "$HOME/.config/zsh"
+backup_if_exists "$HOME/.config/Code/User/settings.json"
 
 if [ "$OS_TYPE" = "macos" ]; then
     backup_if_exists "$HOME/.config/aerospace"
@@ -250,9 +379,9 @@ fi
 # ------------------------------------------------------------------------------
 echo "==> Stowing packages..."
 if [ "$OS_TYPE" = "macos" ]; then
-    PACKAGES=(aerospace ghostty sketchybar starship zsh)
+    PACKAGES=(aerospace ghostty sketchybar snx-rs starship vscode zsh)
 else
-    PACKAGES=(ghostty starship zsh)
+    PACKAGES=(ghostty snx-rs starship vscode zsh)
 fi
 
 for pkg in "${PACKAGES[@]}"; do
@@ -263,6 +392,12 @@ for pkg in "${PACKAGES[@]}"; do
 done
 
 if [ "$OS_TYPE" = "macos" ]; then
+    # Link VS Code settings.json to macOS Application Support directory
+    MACOS_VSCODE_USER_DIR="$HOME/Library/Application Support/Code/User"
+    mkdir -p "$MACOS_VSCODE_USER_DIR"
+    backup_if_exists "$MACOS_VSCODE_USER_DIR/settings.json"
+    ln -sf "$HOME/.config/Code/User/settings.json" "$MACOS_VSCODE_USER_DIR/settings.json"
+
     # Ensure sketchybarrc is executable
     if [ -f "$HOME/.config/sketchybar/sketchybarrc" ]; then
         chmod +x "$HOME/.config/sketchybar/sketchybarrc"
@@ -276,7 +411,25 @@ if [ "$OS_TYPE" = "macos" ]; then
 fi
 
 # ------------------------------------------------------------------------------
-# 6. Completion Notice
+# 6. VS Code Extensions
+# ------------------------------------------------------------------------------
+if command -v code &> /dev/null; then
+    echo "==> Installing VS Code extensions..."
+    VSCODE_EXTENSIONS=(
+        "iwyvi.chinolor"
+        "miguelsolorio.symbols"
+        "ms-vscode.makefile-tools"
+        "ms-python.python"
+        "batisteo.vscode-django"
+    )
+    for ext in "${VSCODE_EXTENSIONS[@]}"; do
+        echo "  -> Installing VS Code extension: $ext"
+        code --install-extension "$ext" --force
+    done
+fi
+
+# ------------------------------------------------------------------------------
+# 7. Completion Notice
 # ------------------------------------------------------------------------------
 echo ""
 echo "============================================================"
